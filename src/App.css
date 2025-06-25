@@ -1,0 +1,118 @@
+main {
+    margin-inline: auto;
+    padding: 36px;
+    max-width: 600px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5em;
+    background: linear-gradient(90deg, #ea8233 1.18%, #daaa18 100%);
+    color: white;
+    padding: 20px;
+}
+
+.header > img {
+    height: 200%;
+    margin: -10px;
+    margin-right: 6px;
+}
+
+.header > h1 {
+    font-family: "Finger Paint";
+    width: max-content;
+    font-size: clamp(1em, 8vw, 1.75em);
+    text-wrap: nowrap;
+    
+}
+
+.form {
+    display: grid;
+    grid-template: auto auto / 1fr 1fr;
+    gap: 17px;
+    margin-bottom: 17px;
+}
+
+.form input {
+    width: 100%;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(209, 209, 209);
+    text-indent: 5px;
+    background-color: #faf6ea;
+}
+
+.form button {
+    grid-column: 1 / -1;
+    border-radius: 5px;
+    background: linear-gradient(90.41deg, #ea8233 1.14%, #daaa18 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size:large;
+    font-weight: bolder;
+}
+
+.form button.submitting-disabled {
+  cursor: not-allowed;
+  background: rgb(82, 81, 81);
+  color: rgb(175, 174, 174);
+  font-weight: bold;
+}
+
+.form input, .form button {
+    min-height: 40px;
+    font-family: "Karla", sans-serif;
+}
+
+.meme {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #faf6ea;
+}
+
+.meme > img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 3px;
+    padding: 3px;
+    border: 3px rgb(209, 209, 209) solid;
+}
+
+.meme span {
+    position: absolute;
+    text-align: center;
+    margin-block: 15px;
+    padding-inline: 5px;
+    font-family: impact, sans-serif;
+    font-size: clamp(1.25em, 5vw, 2em);
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 1px;
+    text-shadow:
+        2px 2px 0 #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        0 2px 0 #000,
+        2px 0 0 #000,
+        0 -2px 0 #000,
+        -2px 0 0 #000,
+        2px 2px 5px #000;
+    width: 92.5%;
+    text-wrap: wrap;
+    overflow-wrap: anywhere;
+}
+
+.bottom {
+    bottom: 0;
+}
+
+.top {
+    top: 0;
+}
