@@ -30,21 +30,71 @@ main {
 
 .form {
     display: grid;
-    grid-template: auto auto / 1fr 1fr;
+    grid-template: auto auto / 1fr;
     gap: 17px;
     margin-bottom: 17px;
 }
 
+.form label {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-wrap: nowrap;
+    font-family: "Karla", sans-serif;
+    font-weight: bold;
+    font-size: 1.125em;
+}
+
 .form input {
-    width: 100%;
-    margin-top: 5px;
+    width: 75%;
+    margin-left: 10px;
+    margin-right: 5px;
+    /* margin-top: 5px; */
     border-radius: 5px;
     border: 1px solid rgb(209, 209, 209);
     text-indent: 5px;
     background-color: #faf6ea;
+    font-family: "Karla", sans-serif;
+    min-height: 35px;
+    font-size: clamp(0.75em, 3vw, 1em);
+    color: rgb(67, 67, 67);
+
+}
+.form > label > img {
+    height: clamp(15px, 5vw, 28px);
+    cursor: pointer;
 }
 
-.form button {
+.form > .addTextBox {
+    display: flex;
+    gap: 15px;
+}
+
+.addTextBox > div {
+    background-color: #F0EFEB;
+    border-radius: 5px;
+    width: 95%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(112, 110, 110);
+}
+
+.addTextBox > button {
+    color: #a5c601 ;
+    font-size: 2em;
+    font-weight: bolder;
+    border: none;
+    background-color: white;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.form > button {
     grid-column: 1 / -1;
     border-radius: 5px;
     background: linear-gradient(90.41deg, #ea8233 1.14%, #daaa18 100%);
@@ -53,6 +103,8 @@ main {
     cursor: pointer;
     font-size:large;
     font-weight: bolder;
+    min-height: 40px;
+    font-family: "Karla", sans-serif;
 }
 
 .form button.submitting-disabled {
@@ -62,10 +114,6 @@ main {
   font-weight: bold;
 }
 
-.form input, .form button {
-    min-height: 40px;
-    font-family: "Karla", sans-serif;
-}
 
 .meme {
     position: relative;
@@ -84,9 +132,7 @@ main {
     border: 3px rgb(209, 209, 209) solid;
 }
 
-.meme span {
-    position: absolute;
-    text-align: center;
+.meme > div {
     margin-block: 15px;
     padding-inline: 5px;
     font-family: impact, sans-serif;
@@ -104,15 +150,28 @@ main {
         0 -2px 0 #000,
         -2px 0 0 #000,
         2px 2px 5px #000;
-    width: 92.5%;
     text-wrap: wrap;
     overflow-wrap: anywhere;
 }
 
-.bottom {
+/* .meme > div:hover {
+} */
+
+.meme > div::after {
+    position:absolute;
+    top: 0;
     bottom: 0;
+    right: 0;
+    left: 0;
+    content: '';
+    z-index: 999;
+
 }
 
-.top {
-    top: 0;
+.meme > div:hover::after{
+    border: 2px dashed black;
+}
+
+.meme > div:focus-within  {
+    border: 2px dashed black;
 }
