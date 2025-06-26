@@ -53,7 +53,6 @@ main {
     border-radius: 5px;
     border: 1px solid rgb(209, 209, 209);
     text-indent: 5px;
-    background-color: #faf6ea;
     font-family: "Karla", sans-serif;
     min-height: 35px;
     font-size: clamp(0.75em, 3vw, 1em);

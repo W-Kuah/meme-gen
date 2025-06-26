@@ -148,10 +148,10 @@ export default function Body() {
                       <img src={cancelIcon} onClick={() => handleHide(textObj.id)}/>
                     </label> : null)
               ))}
-                <div className='addTextBox'>
+                {(showNext() !== 0) ? <div className='addTextBox'>
                   <button onClick={handleShow}>+</button>
                   <div>Add up to 6 separate texts.</div>
-                </div>
+                </div> : null}
                 <button 
                   className={memeCollection.length === 0 ? 'submitting-disabled' : ''} 
                   onClick={getMemeImage} 
