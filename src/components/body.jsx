@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Rnd } from "react-rnd";
+import MemeTexts from './MemeTexts';
 import cancelIcon from '../assets/remove.svg'
 
 
 export default function Body() {
+
     const textObjs = [ 
       {
         id: 1,
@@ -12,30 +14,25 @@ export default function Body() {
       {
         id: 2,
         name: 'Text 2',
-        value: "Walk Into Modor",
       },
       {
         id: 3,
         name: 'Text 3',
-        value: "Example Text 3",
       },
       {
         id: 4,
         name: 'Text 4',
-        value: "Example Text 4",
       },
       {
         id: 5,
         name: 'Text 5',
-        value: "Example Text 5",
       },
       {
         id: 6,
         name: 'Text 6',
-        value: "Example Text 6",
       }
     ];
-
+    
     const [values, setValues] = useState({
       1: 'One Does Not Simply',
       2: 'Walk Into Modor',
@@ -44,7 +41,7 @@ export default function Body() {
       5: 'Example Text 5',
       6: 'Example Text 6',
     });
-
+    
     const [hidden, setHidden] = useState({
       1: false,
       2: false,
@@ -54,24 +51,18 @@ export default function Body() {
       6: true,
     });
 
+    const [initLoc, setInitLoc] = useState(null);
+    
     const [memeImg, setMemeImg] = useState("http://i.imgflip.com/1bij.jpg")
     const [memeCollection, setMemeCollection] = useState([]);
     const [hasDragged, setHasDragged] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
 
-    const showNext = () => {
-      for (let i = 1; i <= 6; i++) {
-        if (hidden[i]) {
-          return i;
-        }
-      }
-      return 0;
-    }
-
-
+    const memeRef = useRef(null);
 
     useEffect(() => { 
       const abortController = new AbortController();
-
+      
       const fetchData = async () => {
         console.log('Fetching data')
         try {
@@ -80,7 +71,7 @@ export default function Body() {
           });
           const resData = await res.json();
           const memeArray = resData.data.memes
-
+          
           setMemeCollection(memeArray);
         } catch (error) {
           if (!abortController.signal.aborted) {
@@ -95,6 +86,50 @@ export default function Body() {
       };
     }, []);
 
+    useEffect(() => {
+      if (memeRef.current && isLoaded) {
+        const { width, height } = memeRef.current.getBoundingClientRect();
+        const partWidth = width / 8;
+        const partHeight = height / 8;
+        console.log(height);
+        console.log(width);
+        setInitLoc({
+          1: {
+            x: partWidth * 2.2,
+            y: partHeight / 2
+          },
+          2: {
+            x: partWidth * 2.2,
+            y: height - (partHeight * 1.5)
+          },
+          3: {
+            x: partWidth * 2.2,
+            y: partHeight * 1.5
+          },
+          4: {
+            x: partWidth * 2.2,
+            y: partHeight * 2.5
+          },
+          5: {
+            x: partWidth * 2.2,
+            y: partHeight* 3.5
+          },
+          6: {
+            x: partWidth * 2.2,
+            y: partHeight * 4.5
+          }
+          });
+      }
+    }, [isLoaded]);
+    
+    const showNext = () => {
+      for (let i = 1; i <= 6; i++) {
+        if (hidden[i]) {
+          return i;
+        }
+      }
+      return 0;
+    }
     const getMemeImage = () => {``
       const randomNumber = Math.floor(Math.random() * memeCollection.length);
       const newMemeObj = memeCollection[randomNumber];
@@ -128,12 +163,15 @@ export default function Body() {
       }
     }
 
+    const handleMemeLoad = () => {
+      setIsLoaded(true)
+    }
+
   
     return (
         <main>
             <div className="form">
                 {textObjs.map((textObj) => (
-                  // <>
                     (!hidden[textObj.id] ? <label
                       key={textObj.name}
                     >
@@ -160,16 +198,15 @@ export default function Body() {
                   {memeCollection.length === 0 ? 'Loading...' : 'Get New Image'}
                 </button>
             </div>
-            <div className="meme">
-                <img draggable="false" src={memeImg} />
-                {textObjs.map((textObj) => (
-                    (!hidden[textObj.id] ?  <Rnd
-                      key={textObj.id}
-                      bounds="parent"
-                    >
-                      {values[textObj.id]}
-                  </Rnd> : null)
-                ))}
+            <div ref={memeRef} className="meme">
+                <img onLoad={handleMemeLoad} draggable="false" src={memeImg} />
+                 <MemeTexts
+                  textObjs={textObjs}
+                  values={values}
+                  hidden={hidden}
+                  initLoc={initLoc}
+                  isLoaded={isLoaded}
+                />
             </div>
         </main>
     )
