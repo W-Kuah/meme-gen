@@ -3,8 +3,6 @@ import { Rnd } from "react-rnd";
 export default function MemeTexts(props) {
     const {textObjs, values, hidden, initLoc, isLoaded, setHasDragged, hasDragged} = props;
 
-
-    console.log(hasDragged);
     return (
             (initLoc !== null && isLoaded ? textObjs.map((textObj) => (
                 (!hidden[textObj.id] ?  
@@ -22,7 +20,7 @@ export default function MemeTexts(props) {
                 >
                     {values[textObj.id]}
                     <svg 
-                        class="marching-ants-border"
+                        className="marching-ants-border"
                         viewBox="0 0 200 100" 
                         preserveAspectRatio="none"
                     >

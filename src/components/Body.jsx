@@ -6,6 +6,8 @@ import downloadIcon from '../assets/download.svg'
 
 
 export default function Body() {
+    const MIN_WIDTH = 150;
+    const MIN_HEIGHT = 150;
 
     const textObjs = [ 
       {
@@ -58,8 +60,10 @@ export default function Body() {
     const [memeCollection, setMemeCollection] = useState([]);
     const [hasDragged, setHasDragged] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [fileError, setFileError] = useState('');
 
     const memeRef = useRef(null);
+    const uploadRef = useRef(null);
 
     useEffect(() => { 
       const abortController = new AbortController();
@@ -180,6 +184,45 @@ export default function Body() {
       document.body.removeChild(link);  
     };
 
+    const handleImageChange = (e) => {
+      console.log('go');
+      const file = e.target.files[0];
+      if (!file) {
+              console.log('no files');
+
+        return
+      };
+
+      if (!file.type.match('image.*')) {
+        setFileError('Please select a valid image file (JPEG, PNG, etc.)');
+      return;
+    }
+
+      setFileError(''); 
+      const reader = new FileReader();
+      const img = new Image();
+      reader.onload = (event) => {
+        img.onload = () => {
+
+          if (img.width >= MIN_WIDTH && img.height >= MIN_HEIGHT) {
+            setMemeImg(event.target.result);
+            console.log('image success');
+          } else {
+            setFileError(
+              `Image must be at least ${MIN_WIDTH} x ${MIN_HEIGHT}px. 
+              Your image: ${img.width} x ${img.height}px.`
+            );
+          };
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    const handleUploadClick = () => {
+      uploadRef.current.click();
+    }
+
   
     return (
         <main>
@@ -205,13 +248,26 @@ export default function Body() {
                   <button onClick={handleShow}>+</button>
                   <div>Add up to 6 separate texts.</div>
                 </div> : null}
-                <button 
-                  className={memeCollection.length === 0 ? 'submitting-disabled' : ''} 
-                  onClick={getMemeImage} 
-                  disabled={memeCollection.length === 0 ? true : false}
-                >
-                  {memeCollection.length === 0 ? 'Loading...' : 'Get New Image'}
-                </button>
+                <div className="getImgGroup">
+                  <button
+                    className={`{memeCollection.length === 0 ? 'submitting-disabled' : ''} randomiser`} 
+                    onClick={getMemeImage} 
+                    disabled={memeCollection.length === 0 ? true : false}
+                  >
+                    {memeCollection.length === 0 ? 'Loading...' : 'Get Random Image'}
+                  </button>
+                  <button onClick={handleUploadClick} className="upload">
+                    <input 
+                      ref={uploadRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      style={{ display: 'none' }}
+                    />
+                    Upload Custom
+                  </button>
+                </div>
+                {fileError==='' ? null : <span className='errorMessage'>{fileError}</span>}
             </div>
             <div id="print" ref={memeRef} className="meme">
                 <img onLoad={handleMemeLoad} draggable="false" src={memeImg} />

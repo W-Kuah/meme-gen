@@ -78,6 +78,7 @@ main {
     justify-content: center;
     align-items: center;
     color: rgb(112, 110, 110);
+    font-size: clamp(0.75em, 3vw, 0.9em);
 }
 
 .addTextBox > button {
@@ -93,17 +94,39 @@ main {
     cursor: pointer;
 }
 
-.form > button {
+.form > .getImgGroup {
     grid-column: 1 / -1;
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    gap:15px;
+}
+.form > .getImgGroup > button {
     border-radius: 5px;
-    background: linear-gradient(90.41deg, #ea8233 1.14%, #daaa18 100%);
     color: white;
     border: none;
     cursor: pointer;
+    min-height: 40px;
     font-size:large;
     font-weight: bolder;
-    min-height: 40px;
     font-family: "Karla", sans-serif;
+}
+
+button.randomiser{
+    background: linear-gradient(90.41deg, #ea8233 1.14%, #daaa18 100%);
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+}
+
+button.upload{
+    background: linear-gradient(90.41deg, #336dea 1.14%, #183fda 100%);
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+}
+
+.errorMessage{
+    font-size: 12px;
+    padding: 3px;
+    color: red;
 }
 
 .form button.submitting-disabled {
@@ -224,4 +247,22 @@ main {
     border: 5px solid #daaa18;
     border-radius: 10px;
     cursor: pointer;
+}
+
+
+@media screen and (max-width: 576px) {
+    
+    button.randomiser{
+        grid-column: 1 / 3;
+        grid-row: 1 / 2;
+    }
+
+    button.upload{
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+    }
+
+.form > .getImgGroup {
+    gap: 10px;
+}
 }
