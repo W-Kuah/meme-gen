@@ -3,6 +3,7 @@ import html2canvas from 'html2canvas';
 import MemeTexts from './MemeTexts';
 import cancelIcon from '../assets/remove.svg'
 import downloadIcon from '../assets/download.svg'
+import plusIcon from '../assets/plus.svg'
 
 
 export default function Body() {
@@ -245,7 +246,9 @@ export default function Body() {
                     </label> : null)
               ))}
                 {(showNext() !== 0) ? <div className='addTextBox'>
-                  <button onClick={handleShow}>+</button>
+                  <a onClick={handleShow}>
+                    <img src={plusIcon} alt="add text" />
+                  </a>
                   <div>Add up to 6 separate texts.</div>
                 </div> : null}
                 <div className="getImgGroup">

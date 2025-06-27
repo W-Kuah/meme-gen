@@ -40,10 +40,12 @@ main {
     justify-content: space-around;
     align-items: center;
     text-wrap: nowrap;
+    white-space: nowrap;
     font-family: "Karla", sans-serif;
     font-weight: bold;
     font-size: 1.125em;
 }
+
 
 .form input {
     width: 75%;
@@ -59,20 +61,23 @@ main {
     color: rgb(67, 67, 67);
 
 }
+.form > label > a {
+    display: flex;
+}
 .form > label img {
     height: clamp(15px, 5vw, 22px);
     cursor: pointer;
 }
 
 .form > .addTextBox {
-    display: flex;
+    display: grid;
+    grid-template-columns: 30px 1fr;
     gap: 15px;
 }
 
 .addTextBox > div {
     background-color: #F0EFEB;
     border-radius: 5px;
-    width: 95%;
     height: 30px;
     display: flex;
     justify-content: center;
@@ -81,13 +86,18 @@ main {
     font-size: clamp(0.75em, 3vw, 0.9em);
 }
 
-.addTextBox > button {
-    color: #a5c601 ;
+.addTextBox > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.addTextBox > a > img {
+
     font-size: 2em;
     font-weight: bolder;
     border: none;
-    background-color: white;
-    height: 30px;
+    background-color: rgb(255, 255, 255);
+    height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
