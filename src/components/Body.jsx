@@ -95,33 +95,62 @@ export default function Body() {
         const { width, height } = memeRef.current.getBoundingClientRect();
         const partWidth = width / 8;
         const partHeight = height / 8;
-
-        setInitLoc({
-          1: {
-            x: partWidth * 1.8,
-            y: partHeight / 2
-          },
-          2: {
-            x: partWidth * 2.1,
-            y: height - (partHeight * 1.5)
-          },
-          3: {
-            x: partWidth * 2.1,
-            y: partHeight * 1.5
-          },
-          4: {
-            x: partWidth * 2.1,
-            y: partHeight * 2.5
-          },
-          5: {
-            x: partWidth * 2.1,
-            y: partHeight* 3.5
-          },
-          6: {
-            x: partWidth * 2.1,
-            y: partHeight * 4.5
-          }
-          });
+        console.log(getDeviceType());
+        if (getDeviceType() === 'Mobile') {
+          setInitLoc({
+            1: {
+              x: partWidth * 1.3,
+              y: partHeight / 2
+            },
+            2: {
+              x: partWidth * 1.5,
+              y: height - (partHeight * 1.5)
+            },
+            3: {
+              x: partWidth * 1.3,
+              y: partHeight * 1.5
+            },
+            4: {
+              x: partWidth * 1.3,
+              y: partHeight * 2.5
+            },
+            5: {
+              x: partWidth * 1.3,
+              y: partHeight* 3.5
+            },
+            6: {
+              x: partWidth * 1.3,
+              y: partHeight * 4.5
+            }
+            });
+        } else {
+          setInitLoc({
+            1: {
+              x: partWidth * 1.8,
+              y: partHeight / 2
+            },
+            2: {
+              x: partWidth * 2.2,
+              y: height - (partHeight * 1.5)
+            },
+            3: {
+              x: partWidth * 1.8,
+              y: partHeight * 1.5
+            },
+            4: {
+              x: partWidth * 1.8,
+              y: partHeight * 2.5
+            },
+            5: {
+              x: partWidth * 1.8,
+              y: partHeight* 3.5
+            },
+            6: {
+              x: partWidth * 1.8,
+              y: partHeight * 4.5
+            }
+            });
+        }
       }
     }, [isLoaded]);
     
@@ -133,6 +162,19 @@ export default function Body() {
       }
       return 0;
     }
+
+    const getDeviceType = () => {
+      const userAgent = navigator.userAgent;
+      console.log(userAgent);
+      if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(userAgent)) {
+        return "Tablet";
+      }
+      if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|NetFront|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/i.test(userAgent)) {
+        return "Mobile";
+      }
+      return "Desktop";
+    }
+
     const getMemeImage = () => {``
       const randomNumber = Math.floor(Math.random() * memeCollection.length);
       const newMemeObj = memeCollection[randomNumber];
