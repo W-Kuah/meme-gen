@@ -167,10 +167,6 @@ main {
 
 }
 
-.meme > div:hover::after{
-    border: 2px dashed black;
-}
-
-.meme > div:focus-within  {
+.meme > div:hover::after, .meme > div:focus::after{
     border: 2px dashed black;
 }
