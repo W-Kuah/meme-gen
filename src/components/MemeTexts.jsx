@@ -18,7 +18,7 @@ export default function MemeTexts(props) {
                     }}
                     onDragStart={() => setHasDragged(true)}
                     onResizeStart={() => setHasDragged(true)}
-                    className={!hasDragged ? 'prompt' : null}
+                    className={!hasDragged ? 'prompt' : null}  
                 >
                     {values[textObj.id]}
                     <svg 
