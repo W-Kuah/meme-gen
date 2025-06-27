@@ -263,6 +263,7 @@ export default function Body() {
     };
 
     const handleUploadClick = () => {
+      setHasDragged(true);
       uploadRef.current.click();
     }
 
