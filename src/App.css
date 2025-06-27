@@ -128,7 +128,7 @@ button.randomiser{
 }
 
 button.upload{
-    background: linear-gradient(90.41deg, #336dea 1.14%, #183fda 100%);
+    background: linear-gradient(90.41deg, #338cea 1.14%, #18b3da 100%);
     grid-column: 2 / 3;
     grid-row: 1 / 3;
 }
