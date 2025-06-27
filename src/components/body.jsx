@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react"
-import { Rnd } from "react-rnd";
 import html2canvas from 'html2canvas';
 import MemeTexts from './MemeTexts';
 import cancelIcon from '../assets/remove.svg'
+import downloadIcon from '../assets/download.svg'
 
 
 export default function Body() {
@@ -65,7 +65,6 @@ export default function Body() {
       const abortController = new AbortController();
       
       const fetchData = async () => {
-        console.log('Fetching data')
         try {
           const res = await fetch('https://api.imgflip.com/get_memes', {
             signal: abortController.signal 
@@ -82,7 +81,6 @@ export default function Body() {
       }
       fetchData();
       return () => {
-        console.log('Cleaning up');
         abortController.abort()
       };
     }, []);
@@ -92,8 +90,7 @@ export default function Body() {
         const { width, height } = memeRef.current.getBoundingClientRect();
         const partWidth = width / 8;
         const partHeight = height / 8;
-        console.log(height);
-        console.log(width);
+
         setInitLoc({
           1: {
             x: partWidth * 1.8,
@@ -199,7 +196,9 @@ export default function Body() {
                         value={values[textObj.id]}
                         onChange={handleChange}
                       />
-                      <img src={cancelIcon} onClick={() => handleHide(textObj.id)}/>
+                      <a onClick={() => handleHide(textObj.id)}>
+                        <img src={cancelIcon} alt="remove text" />
+                      </a>
                     </label> : null)
               ))}
                 {(showNext() !== 0) ? <div className='addTextBox'>
@@ -222,9 +221,19 @@ export default function Body() {
                   hidden={hidden}
                   initLoc={initLoc}
                   isLoaded={isLoaded}
+                  setHasDragged={setHasDragged}
+                  hasDragged={hasDragged}
                 />
             </div>
-            <button type="button" onClick={handleImageDownload}>Download</button>
+            <div className="downloadSection">
+              <div className="downloadDiv">
+                <a  onClick={handleImageDownload}>
+                  <img src={downloadIcon} alt="download image" />
+                </a>
+              </div>
+            </div>
+            
+            
         </main>
     )
 }
