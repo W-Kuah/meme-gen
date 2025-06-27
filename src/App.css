@@ -178,7 +178,7 @@ main {
 }
 
 .marching-ants-border rect {
-    stroke-dasharray: 5 5;
+    stroke-dasharray: 10 5;
     stroke: transparent;
     fill: none;
     stroke-width: 3;
