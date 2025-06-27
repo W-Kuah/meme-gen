@@ -95,27 +95,27 @@ export default function Body() {
         console.log(width);
         setInitLoc({
           1: {
-            x: partWidth * 2.2,
+            x: partWidth * 1.8,
             y: partHeight / 2
           },
           2: {
-            x: partWidth * 2.2,
+            x: partWidth * 2.1,
             y: height - (partHeight * 1.5)
           },
           3: {
-            x: partWidth * 2.2,
+            x: partWidth * 2.1,
             y: partHeight * 1.5
           },
           4: {
-            x: partWidth * 2.2,
+            x: partWidth * 2.1,
             y: partHeight * 2.5
           },
           5: {
-            x: partWidth * 2.2,
+            x: partWidth * 2.1,
             y: partHeight* 3.5
           },
           6: {
-            x: partWidth * 2.2,
+            x: partWidth * 2.1,
             y: partHeight * 4.5
           }
           });
