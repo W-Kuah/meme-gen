@@ -5,7 +5,7 @@ export default function MemeTexts(props) {
     return (
             (initLoc !== null && isLoaded ? textObjs.map((textObj) => (
                 (!hidden[textObj.id] ?  <Rnd
-                    tabindex="0"
+                    tabIndex="0"
                     key={textObj.id}
                     bounds="parent"
                     default={{

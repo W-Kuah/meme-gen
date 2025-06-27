@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { Rnd } from "react-rnd";
+import html2canvas from 'html2canvas';
 import MemeTexts from './MemeTexts';
 import cancelIcon from '../assets/remove.svg'
 
@@ -167,6 +168,21 @@ export default function Body() {
       setIsLoaded(true)
     }
 
+    const handleImageDownload = async (e) => {
+      e.preventDefault();
+      const element = document.getElementById('print'),
+      canvas = await html2canvas(element, {useCORS: true}),
+      data = canvas.toDataURL('image/jpg'),
+      link = document.createElement('a');
+
+      link.href = data;
+      link.download = 'downloaded-image.jpg';
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);  
+    };
+
   
     return (
         <main>
@@ -198,7 +214,7 @@ export default function Body() {
                   {memeCollection.length === 0 ? 'Loading...' : 'Get New Image'}
                 </button>
             </div>
-            <div ref={memeRef} className="meme">
+            <div id="print" ref={memeRef} className="meme">
                 <img onLoad={handleMemeLoad} draggable="false" src={memeImg} />
                  <MemeTexts
                   textObjs={textObjs}
@@ -208,6 +224,7 @@ export default function Body() {
                   isLoaded={isLoaded}
                 />
             </div>
+            <button type="button" onClick={handleImageDownload}>Download</button>
         </main>
     )
 }
