@@ -214,6 +214,7 @@ export default function Body() {
 
     const handleImageDownload = async (e) => {
       e.preventDefault();
+      setHasDragged(true);
       const element = document.getElementById('print'),
       canvas = await html2canvas(element, {useCORS: true}),
       data = canvas.toDataURL('image/jpg'),
@@ -263,7 +264,6 @@ export default function Body() {
     };
 
     const handleUploadClick = () => {
-      setHasDragged(true);
       uploadRef.current.click();
     }
 
