@@ -43,24 +43,43 @@ main {
     white-space: nowrap;
     font-family: "Karla", sans-serif;
     font-weight: bold;
-    font-size: 1.125em;
+    font-size: clamp(1em, 4vw, 1.125em);
 }
 
 
 .form input {
-    width: 75%;
-    margin-left: 10px;
     margin-right: 5px;
-    /* margin-top: 5px; */
     border-radius: 5px;
-    border: 1px solid rgb(209, 209, 209);
     text-indent: 5px;
     font-family: "Karla", sans-serif;
     min-height: 35px;
-    font-size: clamp(0.75em, 3vw, 1em);
-    color: rgb(67, 67, 67);
-
 }
+
+.form input.textInput {
+    border: 1px solid rgb(0, 0, 0);
+    margin-left: 10px;
+    width: 75%;
+    color: rgb(67, 67, 67);
+    font-size: clamp(0.75em, 3vw, 1em);
+}
+
+.form input.textSize{
+    width: 4em;
+    font-size: clamp(0.7em, 3vw, 0.75em);
+    border: 1px solid rgb(209, 209, 209);
+}
+.form input.textSize.errorSize {
+    border: 1.5px solid red;
+    outline:none;
+}
+
+
+.form input.textSize::-webkit-inner-spin-button, 
+.form input.textSize::-webkit-outer-spin-button {  
+   opacity: 1;
+}
+
+
 .form > label > a {
     display: flex;
 }
@@ -182,8 +201,8 @@ button.upload{
         0 -2px 0 #000,
         -2px 0 0 #000,
         2px 2px 5px #000;
-    text-wrap: wrap;
-    overflow-wrap: anywhere;
+    
+    
 }
 
 /* .meme > div:hover {
@@ -260,6 +279,8 @@ button.upload{
 }
 
 
+
+
 @media screen and (max-width: 576px) {
     
     button.randomiser{
@@ -272,7 +293,7 @@ button.upload{
         grid-row: 2 / 3;
     }
 
-.form > .getImgGroup {
-    gap: 10px;
-}
+    .form > .getImgGroup {
+        gap: 10px;
+    }
 }
