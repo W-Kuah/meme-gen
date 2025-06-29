@@ -110,13 +110,12 @@ export default function Body() {
         abortController.abort()
       };
     }, []);
-
+    
     useEffect(() => {
       if (memeRef.current && isLoaded) {
         const { width, height } = memeRef.current.getBoundingClientRect();
         const partWidth = width / 8;
         const partHeight = height / 8;
-        console.log(getDeviceType());
         if (getDeviceType() === 'Mobile') {
           setInitLoc({
             1: {
@@ -186,7 +185,6 @@ export default function Body() {
 
     const getDeviceType = () => {
       const userAgent = navigator.userAgent;
-      console.log(userAgent);
       if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(userAgent)) {
         return "Tablet";
       }
@@ -199,7 +197,6 @@ export default function Body() {
     const getMemeImage = () => {``
       const randomNumber = Math.floor(Math.random() * memeCollection.length);
       const newMemeObj = memeCollection[randomNumber];
-      console.log(newMemeObj);
       setMemeImg(newMemeObj.url);
     }
 
@@ -220,7 +217,6 @@ export default function Body() {
     const handleShow = () => {
       console.log(hidden);
       const nextText = showNext();
-      console.log(nextText);
       if (nextText !== 0) {
         setHidden(prevHidden => ({
           ...prevHidden,
@@ -230,10 +226,8 @@ export default function Body() {
     }
 
     const handleSizeChange = (e) => {
-      console.log('handleSizeChange');
       const value = e.target.value;
       const numValue = parseInt(value);
-      console.log(value);
       if (numValue < 0) return;
       setDisplaySize(prevSizes => ({
         ...prevSizes,
@@ -246,12 +240,9 @@ export default function Body() {
         [e.target.name]: numValue
         }));
       }
-      console.log(displaySize);
-      console.log(fontSize);
     }
 
     const handleSizeUp = (e) => {
-      console.log('handleSizeUp');
       const currentValue = parseInt(displaySize[e.target.name]);
       const newValue = currentValue + 1;
       if (newValue > MAX_TEXT) return;
@@ -265,12 +256,10 @@ export default function Body() {
         [e.target.name]: newValue
         }));
       }
-      console.log(displaySize);
-      console.log(fontSize);
+
     }
 
     const handleSizeDown = (e) => {
-      console.log('handleSizeDown');
       const currentValue = parseInt(displaySize[e.target.name]);
       const newValue = currentValue - 1;
       if (newValue < MIN_TEXT) return;
@@ -284,8 +273,7 @@ export default function Body() {
         [e.target.name]: newValue
         }));
       }
-      console.log(displaySize);
-      console.log(fontSize);
+
     }
 
     const handleMemeLoad = () => {
@@ -311,7 +299,6 @@ export default function Body() {
     const handleImageChange = (e) => {
       const file = e.target.files[0];
       if (!file) {
-
         return
       };
 
@@ -328,7 +315,6 @@ export default function Body() {
 
           if (img.width >= MIN_WIDTH && img.height >= MIN_HEIGHT) {
             setMemeImg(event.target.result);
-            console.log('image success');
           } else {
             setFileError(
               `Image must be at least ${MIN_WIDTH} x ${MIN_HEIGHT}px. 
@@ -343,6 +329,19 @@ export default function Body() {
 
     const handleUploadClick = () => {
       uploadRef.current.click();
+    }
+
+    const TextLeft = () => {
+      let left = 0;
+      for (let i = 0; i < 6; i++) {
+        if (hidden[i] === true) {
+          left = left + 1;
+        }
+      }
+      console.log(left);
+      return (
+        <div>{`${left} Remaining Text Boxes!`}</div>
+      );
     }
 
   
@@ -390,11 +389,11 @@ export default function Body() {
                   <a onClick={handleShow}>
                     <img src={plusIcon} alt="add text" />
                   </a>
-                  <div>Add up to 6 separate texts.</div>
+                  <TextLeft/>
                 </div> : null}
                 <div className="getImgGroup">
                   <button
-                    className={`{memeCollection.length === 0 ? 'submitting-disabled' : ''} randomiser`} 
+                    className={`${memeCollection.length === 0 ? 'submitting-disabled' : ''} randomiser`} 
                     onClick={getMemeImage} 
                     disabled={memeCollection.length === 0 ? true : false}
                   >
