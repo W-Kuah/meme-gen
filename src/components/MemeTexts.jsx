@@ -1,7 +1,8 @@
 import { Rnd } from "react-rnd";
 
 export default function MemeTexts(props) {
-    const {textObjs, values, hidden, initLoc, isLoaded, setHasDragged, hasDragged} = props;
+    const {textObjs, values, hidden, initLoc, isLoaded, setHasDragged, hasDragged, fontSize} = props;
+
 
     return (
             (initLoc !== null && isLoaded ? textObjs.map((textObj) => (
@@ -17,6 +18,9 @@ export default function MemeTexts(props) {
                     onDragStart={() => setHasDragged(true)}
                     onResizeStart={() => setHasDragged(true)}
                     className={!hasDragged ? 'prompt' : null}  
+                    style={{
+                        fontSize: `clamp(${fontSize[textObj.id] / 16}em, 5vw, ${fontSize[textObj.id] / 8}em)`
+                    }}
                 >
                     {values[textObj.id]}
                     <svg 

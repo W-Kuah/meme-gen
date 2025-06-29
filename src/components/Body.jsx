@@ -10,30 +10,33 @@ export default function Body() {
     const MIN_WIDTH = 150;
     const MIN_HEIGHT = 150;
 
+    const MIN_TEXT = 8;
+    const MAX_TEXT = 23;
+
     const textObjs = [ 
       {
         id: 1,
-        name: 'Text 1',
+        name: '1',
       },
       {
         id: 2,
-        name: 'Text 2',
+        name: '2',
       },
       {
         id: 3,
-        name: 'Text 3',
+        name: '3',
       },
       {
         id: 4,
-        name: 'Text 4',
+        name: '4',
       },
       {
         id: 5,
-        name: 'Text 5',
+        name: '5',
       },
       {
         id: 6,
-        name: 'Text 6',
+        name: '6',
       }
     ];
     
@@ -53,6 +56,24 @@ export default function Body() {
       4: true,
       5: true,
       6: true,
+    });
+
+    const [fontSize, setFontSize] = useState({
+      1: 16,
+      2: 16,
+      3: 16,
+      4: 16,
+      5: 16,
+      6: 16,
+    });
+
+    const [displaySize, setDisplaySize] = useState({
+      1: 16,
+      2: 16,
+      3: 16,
+      4: 16,
+      5: 16,
+      6: 16,
     });
 
     const [initLoc, setInitLoc] = useState(null);
@@ -185,7 +206,7 @@ export default function Body() {
     const handleChange = (e) => {
       setValues(prevValues => ({
         ...prevValues, 
-        [e.target.id]: e.target.value
+        [e.target.name]: e.target.value
       }));
     }
 
@@ -205,6 +226,21 @@ export default function Body() {
           ...prevHidden,
           [nextText] : false
         }));
+      }
+    }
+
+    const handleSizeChange = (e) => {
+      const value = e.target.value;
+      setDisplaySize(prevSizes => ({
+        ...prevSizes,
+        [e.target.name]: value
+      }));
+
+      if (value <= MAX_TEXT && value >= MIN_TEXT) {
+        setFontSize(prevSizes => ({
+        ...prevSizes,
+        [e.target.name]: value
+      }));
       }
     }
 
@@ -277,11 +313,18 @@ export default function Body() {
                     >
                       {textObj.name + ':'}
                       <input 
-                        id={textObj.id}
+                        className="textInput"
                         type="text"
-                        name={textObj.name}
+                        name={textObj.id}
                         value={values[textObj.id]}
                         onChange={handleChange}
+                      />
+                      <input
+                        className={`textSize ${displaySize[textObj.id] > MAX_TEXT || displaySize[textObj.id] < MIN_TEXT ? 'errorSize' : ''}`}
+                        type="number" 
+                        name={textObj.id}
+                        value={displaySize[textObj.id]}
+                        onChange={handleSizeChange}
                       />
                       <a onClick={() => handleHide(textObj.id)}>
                         <img src={cancelIcon} alt="remove text" />
@@ -325,6 +368,7 @@ export default function Body() {
                   isLoaded={isLoaded}
                   setHasDragged={setHasDragged}
                   hasDragged={hasDragged}
+                  fontSize={fontSize}
                 />
             </div>
             <div className="downloadSection">
