@@ -10,8 +10,8 @@ export default function Body() {
     const MIN_WIDTH = 150;
     const MIN_HEIGHT = 150;
 
-    const MIN_TEXT = 8;
-    const MAX_TEXT = 23;
+    const MIN_TEXT = 1;
+    const MAX_TEXT = 16;
 
     const textObjs = [ 
       {
@@ -59,21 +59,21 @@ export default function Body() {
     });
 
     const [fontSize, setFontSize] = useState({
-      1: 16,
-      2: 16,
-      3: 16,
-      4: 16,
-      5: 16,
-      6: 16,
+      1: 9,
+      2: 9,
+      3: 9,
+      4: 9,
+      5: 9,
+      6: 9,
     });
 
     const [displaySize, setDisplaySize] = useState({
-      1: 16,
-      2: 16,
-      3: 16,
-      4: 16,
-      5: 16,
-      6: 16,
+      1: 9,
+      2: 9,
+      3: 9,
+      4: 9,
+      5: 9,
+      6: 9,
     });
 
     const [initLoc, setInitLoc] = useState(null);
@@ -230,18 +230,62 @@ export default function Body() {
     }
 
     const handleSizeChange = (e) => {
+      console.log('handleSizeChange');
       const value = e.target.value;
+      const numValue = parseInt(value);
+      console.log(value);
+      if (numValue < 0) return;
       setDisplaySize(prevSizes => ({
         ...prevSizes,
         [e.target.name]: value
       }));
 
-      if (value <= MAX_TEXT && value >= MIN_TEXT) {
+      if (numValue <= MAX_TEXT && numValue >= MIN_TEXT) {
         setFontSize(prevSizes => ({
         ...prevSizes,
-        [e.target.name]: value
-      }));
+        [e.target.name]: numValue
+        }));
       }
+      console.log(displaySize);
+      console.log(fontSize);
+    }
+
+    const handleSizeUp = (e) => {
+      console.log('handleSizeUp');
+      const currentValue = parseInt(displaySize[e.target.name]);
+      const newValue = currentValue + 1;
+      if (newValue > MAX_TEXT) return;
+      setDisplaySize(prevSizes => ({
+        ...prevSizes,
+        [e.target.name]: newValue
+      }))
+      if (newValue <= MAX_TEXT && newValue >= MIN_TEXT){
+        setFontSize(prevSizes => ({
+        ...prevSizes,
+        [e.target.name]: newValue
+        }));
+      }
+      console.log(displaySize);
+      console.log(fontSize);
+    }
+
+    const handleSizeDown = (e) => {
+      console.log('handleSizeDown');
+      const currentValue = parseInt(displaySize[e.target.name]);
+      const newValue = currentValue - 1;
+      if (newValue < MIN_TEXT) return;
+      setDisplaySize(prevSizes => ({
+        ...prevSizes,
+        [e.target.name]: newValue
+      }))
+      if (newValue <= MAX_TEXT && newValue >= MIN_TEXT) {
+        setFontSize(prevSizes => ({
+        ...prevSizes,
+        [e.target.name]: newValue
+        }));
+      }
+      console.log(displaySize);
+      console.log(fontSize);
     }
 
     const handleMemeLoad = () => {
@@ -265,10 +309,8 @@ export default function Body() {
     };
 
     const handleImageChange = (e) => {
-      console.log('go');
       const file = e.target.files[0];
       if (!file) {
-              console.log('no files');
 
         return
       };
@@ -319,13 +361,26 @@ export default function Body() {
                         value={values[textObj.id]}
                         onChange={handleChange}
                       />
-                      <input
-                        className={`textSize ${displaySize[textObj.id] > MAX_TEXT || displaySize[textObj.id] < MIN_TEXT ? 'errorSize' : ''}`}
-                        type="number" 
-                        name={textObj.id}
-                        value={displaySize[textObj.id]}
-                        onChange={handleSizeChange}
-                      />
+                      <div className="sizeGroup">
+                        <input
+                          className={`textSize ${displaySize[textObj.id] > MAX_TEXT || displaySize[textObj.id] < MIN_TEXT ? 'errorSize' : ''}`}
+                          type="numeric" 
+                          name={textObj.id}
+                          value={displaySize[textObj.id]}
+                          onChange={handleSizeChange}
+                        />
+                        <div className='upDown'>
+                          <button className={`up ${displaySize[textObj.id] > MAX_TEXT || displaySize[textObj.id] < MIN_TEXT ? 'errorSize' : ''}`}
+                            name={textObj.id} 
+                            onClick={handleSizeUp}>▲
+                          </button>
+                          <button className={`down ${displaySize[textObj.id] > MAX_TEXT || displaySize[textObj.id] < MIN_TEXT ? 'errorSize' : ''}`}
+                            name={textObj.id}
+                            onClick={handleSizeDown}>▼
+                          </button>
+                        </div>
+                      </div>
+                      
                       <a onClick={() => handleHide(textObj.id)}>
                         <img src={cancelIcon} alt="remove text" />
                       </a>

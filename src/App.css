@@ -48,8 +48,6 @@ main {
 
 
 .form input {
-    margin-right: 5px;
-    border-radius: 5px;
     text-indent: 5px;
     font-family: "Karla", sans-serif;
     min-height: 35px;
@@ -57,28 +55,81 @@ main {
 
 .form input.textInput {
     border: 1px solid rgb(0, 0, 0);
+    border-radius: 5px;
     margin-left: 10px;
+    margin-right: 5px;
     width: 75%;
     color: rgb(67, 67, 67);
     font-size: clamp(0.75em, 3vw, 1em);
 }
 
+.form .sizeGroup {
+    display: flex;
+}
+
 .form input.textSize{
-    width: 4em;
+    width: 2.5em;
     font-size: clamp(0.7em, 3vw, 0.75em);
     border: 1px solid rgb(209, 209, 209);
+    border-right: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 .form input.textSize.errorSize {
     border: 1.5px solid red;
+    border-right: none;
     outline:none;
 }
 
 
 .form input.textSize::-webkit-inner-spin-button, 
 .form input.textSize::-webkit-outer-spin-button {  
-   opacity: 1;
+   opacity: 0;
+   display: none;
 }
 
+.upDown{
+    display: flex;
+    flex-direction: column;
+}
+
+.upDown > * {
+    width: 20px;
+    height: 17.5px;
+    font-size: 0.5em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(209, 209, 209);}
+
+.upDown > *:active {
+    background: rgb(209, 209, 209);
+}
+
+.up {
+    border-bottom: none;
+    border-top-right-radius: 5px;
+}
+
+.down {
+    border-top: none;
+    border-bottom-right-radius: 5px;
+}
+
+.up.errorSize {
+    border: 1.5px solid red;
+    border-bottom: none;
+    border-left: none;
+    border-top-right-radius: 5px;
+}
+
+.down.errorSize {
+    border: 1.5px solid red;
+    border-top: none;
+    border-left: none;
+    border-bottom-right-radius: 5px;
+}
 
 .form > label > a {
     display: flex;
@@ -111,7 +162,6 @@ main {
     justify-content: center;
 }
 .addTextBox > a > img {
-
     font-size: 2em;
     font-weight: bolder;
     border: none;

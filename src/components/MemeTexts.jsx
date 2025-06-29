@@ -19,7 +19,7 @@ export default function MemeTexts(props) {
                     onResizeStart={() => setHasDragged(true)}
                     className={!hasDragged ? 'prompt' : null}  
                     style={{
-                        fontSize: `clamp(${fontSize[textObj.id] / 16}em, 5vw, ${fontSize[textObj.id] / 8}em)`
+                        fontSize: `clamp(${ (fontSize[textObj.id] + 7) / 16}em, 5vw, ${ (fontSize[textObj.id] + 7) / 8}em)`
                     }}
                 >
                     {values[textObj.id]}
