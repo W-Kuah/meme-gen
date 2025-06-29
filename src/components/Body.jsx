@@ -333,12 +333,13 @@ export default function Body() {
 
     const TextLeft = () => {
       let left = 0;
-      for (let i = 0; i < 6; i++) {
+      for (let i = 1; i <= 6; i++) {
         if (hidden[i] === true) {
-          left = left + 1;
+          left++;
         }
       }
       console.log(left);
+      console.log(hidden);
       return (
         <div>{`${left} Remaining Text Boxes!`}</div>
       );
