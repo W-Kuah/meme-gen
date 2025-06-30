@@ -5,7 +5,7 @@ export default function MemeTexts(props) {
 
 
     return (
-            (initLoc !== null && isLoaded ? textObjs.map((textObj) => (
+            (initLoc !== null && fontSize !== null && isLoaded ? textObjs.map((textObj) => (
                 (!hidden[textObj.id] ?  
                 <Rnd
                     tabIndex="0"
@@ -19,7 +19,7 @@ export default function MemeTexts(props) {
                     onResizeStart={() => setHasDragged(true)}
                     className={!hasDragged ? 'prompt' : null}  
                     style={{
-                        fontSize: `clamp(${ (fontSize[textObj.id] + 7) / 16}em, 5vw, ${ (fontSize[textObj.id] + 7) / 8}em)`
+                        fontSize: `${ ((fontSize[textObj.id] + 7) / 9) - 0.2}rem`
                     }}
                 >
                     {values[textObj.id]}

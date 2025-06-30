@@ -143,6 +143,16 @@ export default function Body() {
               y: partHeight * 4.5
             }
             });
+            const deviceSize = {
+              1: 5,
+              2: 5,
+              3: 5,
+              4: 5,
+              5: 5,
+              6: 5,
+            }
+            setDisplaySize(deviceSize);
+            setFontSize(deviceSize);
         } else {
           setInitLoc({
             1: {
@@ -170,6 +180,16 @@ export default function Body() {
               y: partHeight * 4.5
             }
             });
+          const deviceSize = {
+            1: 12,
+            2: 12,
+            3: 12,
+            4: 12,
+            5: 12,
+            6: 12,
+          }
+          setDisplaySize(deviceSize);
+          setFontSize(deviceSize);
         }
       }
     }, [isLoaded]);
