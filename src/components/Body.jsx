@@ -157,7 +157,7 @@ export default function Body() {
           setInitLoc({
             1: {
               x: partWidth * 1.8,
-              y: partHeight / 2
+              y: partHeight / 2``
             },
             2: {
               x: partWidth * 2.2,
@@ -235,7 +235,6 @@ export default function Body() {
     };
     
     const handleShow = () => {
-      console.log(hidden);
       const nextText = showNext();
       if (nextText !== 0) {
         setHidden(prevHidden => ({
@@ -358,8 +357,6 @@ export default function Body() {
           left++;
         }
       }
-      console.log(left);
-      console.log(hidden);
       return (
         <div>{`${left} Remaining Text Boxes!`}</div>
       );
