@@ -157,7 +157,7 @@ export default function Body() {
           setInitLoc({
             1: {
               x: partWidth * 1.8,
-              y: partHeight / 2``
+              y: partHeight / 2
             },
             2: {
               x: partWidth * 2.2,
